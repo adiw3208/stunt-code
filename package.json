@@ -1,0 +1,84 @@
+{
+  "name": "stunt-code",
+  "displayName": "stunt-code",
+  "description": "This extension was created to help beginners make it easier for them to build websites",
+  "publisher": "AdiWahyudi",
+  "version": "1.0.35",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adiw3208/stunt-code.git"
+  },
+  "author": {
+    "name": "Adi Wahyudi",
+    "email": "adiw3208@gmail.com"
+  },
+  "icon": "Icon.png",
+  "categories": [
+    "Programming Languages",
+    "Extension Packs",
+    "Other"
+  ],
+  "license": "MIT",
+  "activationEvents": [],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "stunt-code.beginner",
+        "title": "Stunt-Code: Beginner"
+      },
+      {
+        "command": "stunt-code.standard",
+        "title": "Stunt-Code: Standard"
+      },
+      {
+        "command": "stunt-code.nextJS",
+        "title": "Stunt-Code: NextJs - JS"
+      },
+      {
+        "command": "stunt-code.nextTS",
+        "title": "Stunt-Code: NextJs - TS"
+      },
+      {
+        "command": "stunt-code.viteReactJS",
+        "title": "Stunt-Code: Vite React-JS"
+      },
+      {
+        "command": "stunt-code.viteReactTS",
+        "title": "Stunt-Code: Vite React-TS"
+      },
+      {
+        "command": "stunt-code.viteSvelteJS",
+        "title": "Stunt-Code: Vite Svelte-JS"
+      },
+      {
+        "command": "stunt-code.viteSvelteTS",
+        "title": "Stunt-Code: Vite Svelte-TS"
+      },
+      {
+        "command": "stunt-code.viteVueJS",
+        "title": "Stunt-Code: Vite Vue-JS"
+      },
+      {
+        "command": "stunt-code.viteVueTS",
+        "title": "Stunt-Code: Vite Vue-TS"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.98.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "eslint": "^9.21.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
