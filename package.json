@@ -3,7 +3,7 @@
   "displayName": "stunt-code",
   "description": "This extension was created to help beginners make it easier for them to build websites",
   "publisher": "AdiWahyudi",
-  "version": "1.0.35",
+  "version": "1.0.4",
   "engines": {
     "vscode": "^1.98.0"
   },
