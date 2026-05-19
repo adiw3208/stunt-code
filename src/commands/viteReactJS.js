@@ -1,26 +1,25 @@
-const { exec } = require("child_process");
 const vscode = require("vscode");
+const { executeCLICommand } = require("../utils/cliHelper");
 
-function viteReactJS(rootPath) {
-  const projectName = "project-react";
+async function viteReactJS(rootPath, projectName = "project-react") {
   const command = `npx create-vite@latest ${projectName} --template react`;
-  vscode.window.showInformationMessage(
-      "⏳ Stunt-Code: Creating Vite React JS (JS) project... Please wait."
+  const projectPath = `${rootPath}/${projectName}`;
+
+  try {
+    await executeCLICommand(
+      command,
+      rootPath,
+      `✅ Stunt-Code: Vite React JS "${projectName}" created successfully!`,
+      `⏳ Stunt-Code: Creating Vite React JS project "${projectName}"... Please wait.`
     );
-  exec(command, { cwd: rootPath }, (error) => {
-    if (error) {
-      vscode.window.showErrorMessage(`Error: ${error.message}`);
-      return;
-    }
 
     vscode.commands.executeCommand(
       "vscode.openFolder",
-      vscode.Uri.file(`${rootPath}/${projectName}`)
+      vscode.Uri.file(projectPath)
     );
-    vscode.window.showInformationMessage(
-      "✅ Stunt-Code: Vite React JS | Project Created Successfully!"
-    );
-  });
+  } catch (error) {
+    console.error("Failed to create Vite React JS project:", error);
+  }
 }
 
 module.exports = viteReactJS;

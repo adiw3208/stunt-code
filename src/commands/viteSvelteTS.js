@@ -1,26 +1,25 @@
-const { exec } = require("child_process");
 const vscode = require("vscode");
+const { executeCLICommand } = require("../utils/cliHelper");
 
-function viteVueTS(rootPath) {
-  const projectName = "project-svelte-ts";
+async function viteSvelteTS(rootPath, projectName = "project-svelte-ts") {
   const command = `npx create-vite@latest ${projectName} --template svelte-ts`;
-  vscode.window.showInformationMessage(
-      "⏳ Stunt-Code: Creating Vite Svelte TS project... Please wait."
+  const projectPath = `${rootPath}/${projectName}`;
+
+  try {
+    await executeCLICommand(
+      command,
+      rootPath,
+      `✅ Stunt-Code: Vite Svelte TS "${projectName}" created successfully!`,
+      `⏳ Stunt-Code: Creating Vite Svelte TS project "${projectName}"... Please wait.`
     );
-  exec(command, { cwd: rootPath }, (error) => {
-    if (error) {
-      vscode.window.showErrorMessage(`Error: ${error.message}`);
-      return;
-    }
 
     vscode.commands.executeCommand(
       "vscode.openFolder",
-      vscode.Uri.file(`${rootPath}/${projectName}`)
+      vscode.Uri.file(projectPath)
     );
-    vscode.window.showInformationMessage(
-      "✅ Stunt-Code: Vite Svelte TS | Project Created Successfully!"
-    );
-  });
+  } catch (error) {
+    console.error("Failed to create Vite Svelte TS project:", error);
+  }
 }
 
-module.exports = viteVueTS;
+module.exports = viteSvelteTS;

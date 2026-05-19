@@ -1,26 +1,25 @@
-const { exec } = require("child_process");
 const vscode = require("vscode");
+const { executeCLICommand } = require("../utils/cliHelper");
 
-function viteReactTS(rootPath) {
-  const projectName = "project-react-ts";
+async function viteReactTS(rootPath, projectName = "project-react-ts") {
   const command = `npx create-vite@latest ${projectName} --template react-ts`;
-  vscode.window.showInformationMessage(
-      "⏳ Stunt-Code: Creating Vite React TypeScript project... Please wait."
+  const projectPath = `${rootPath}/${projectName}`;
+
+  try {
+    await executeCLICommand(
+      command,
+      rootPath,
+      `✅ Stunt-Code: Vite React TS "${projectName}" created successfully!`,
+      `⏳ Stunt-Code: Creating Vite React TS project "${projectName}"... Please wait.`
     );
-  exec(command, { cwd: rootPath }, (error) => {
-    if (error) {
-      vscode.window.showErrorMessage(`Error: ${error.message}`);
-      return;
-    }
 
     vscode.commands.executeCommand(
       "vscode.openFolder",
-      vscode.Uri.file(`${rootPath}/${projectName}`)
+      vscode.Uri.file(projectPath)
     );
-    vscode.window.showInformationMessage(
-      "✅ Stunt-Code: Vite React TypeScript | Project Created Successfully!"
-    );
-  });
+  } catch (error) {
+    console.error("Failed to create Vite React TS project:", error);
+  }
 }
 
 module.exports = viteReactTS;

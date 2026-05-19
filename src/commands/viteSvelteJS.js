@@ -1,26 +1,25 @@
-const { exec } = require("child_process");
 const vscode = require("vscode");
+const { executeCLICommand } = require("../utils/cliHelper");
 
-function viteVueJS(rootPath) {
-  const projectName = "project-svelte-js";
+async function viteSvelteJS(rootPath, projectName = "project-svelte-js") {
   const command = `npx create-vite@latest ${projectName} --template svelte`;
-  vscode.window.showInformationMessage(
-      "⏳ Stunt-Code: Creating Vite Svelte JS project... Please wait."
+  const projectPath = `${rootPath}/${projectName}`;
+
+  try {
+    await executeCLICommand(
+      command,
+      rootPath,
+      `✅ Stunt-Code: Vite Svelte JS "${projectName}" created successfully!`,
+      `⏳ Stunt-Code: Creating Vite Svelte JS project "${projectName}"... Please wait.`
     );
-  exec(command, { cwd: rootPath }, (error) => {
-    if (error) {
-      vscode.window.showErrorMessage(`Error: ${error.message}`);
-      return;
-    }
 
     vscode.commands.executeCommand(
       "vscode.openFolder",
-      vscode.Uri.file(`${rootPath}/${projectName}`)
+      vscode.Uri.file(projectPath)
     );
-    vscode.window.showInformationMessage(
-      "✅ Stunt-Code: Vite Svelte JS | Project Created Successfully!"
-    );
-  });
+  } catch (error) {
+    console.error("Failed to create Vite Svelte JS project:", error);
+  }
 }
 
-module.exports = viteVueJS;
+module.exports = viteSvelteJS;
